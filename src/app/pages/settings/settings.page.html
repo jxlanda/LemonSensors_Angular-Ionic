@@ -1,0 +1,28 @@
+<ion-content>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Notificaciones</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Esta opción nos permite enviarte una alerta cuando algunos de tus sensores se salga de los valores permitidos.
+      </ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>Habilitar notificaciones</ion-label>
+          <ion-toggle [(ngModel)]="enabledNotifications" (ionChange)="onChange($event)" color="primary" slot="end"></ion-toggle>
+        </ion-item>
+        <mat-form-field *ngIf="showToken" appearance="outline" 
+                        style="margin:0px; width: 100%; padding-left: 16px; padding-right: 16px;">
+          <mat-label>Token</mat-label>
+          <input matInput placeholder="" value="{{tokenFCM}}">
+          <button matSuffix mat-icon-button aria-label="Example icon button with a home icon" (click)="onClick()">
+            <mat-icon matTooltip="Copiar al portapapeles">content_copy</mat-icon>
+          </button>
+        </mat-form-field>
+        <div [hidden]="!loading" style="display: inline-flex; margin-left: 16px; margin-top: 10px;">
+          <mat-spinner diameter="30"></mat-spinner>
+          <label style="color: #2962ff; margin-left: 8px; margin-top: 5px;">generando token...</label>
+        </div>
+      </ion-list>
+    </ion-card>
+</ion-content>

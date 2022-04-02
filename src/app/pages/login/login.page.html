@@ -1,0 +1,56 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-hide-md-down left-col" size-lg="7">
+        <div class="left-background">
+          <div class="img-overlay">
+            <img class="img-lambda" src="assets/img/lambda-white.png">
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="right-col">
+        <div [class.mat-elevation-z8]="true" class="rcol-div">
+          <div id="container">
+            <div class="img-div">
+              <img class="img-lemon" src="assets/img/lemon-blue.png">
+              <p class="title">Lemon Sensors</p>
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <mat-form-field appearance="outline">
+                <mat-label>Correo eléctronico</mat-label>
+                <input type="text" matInput placeholder="name@example.com" formControlName="email">
+                <!-- <mat-icon matPrefix class="color-change">alternate_email</mat-icon> -->
+                <mat-error color="danger" *ngIf="loginForm.get('email').invalid">{{getEmailErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input type="password" matInput formControlName="password">
+                <!-- <mat-icon matPrefix class="color-change">lock</mat-icon> -->
+                <mat-error *ngIf="loginForm.get('password').invalid">{{getPasswordErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <label *ngIf="error404" style="color: #eb445a;">El usuario o contraseña no coinciden</label>
+              <button type="submit" *ngIf="!loading" mat-raised-button color="primary" style="font-size: medium;" disabled="{{loading}}">
+                Iniciar sesión
+              </button>
+              <!-- <mat-spinner-button (btnClick)="btnClick()" [options]="btnOpts"></mat-spinner-button> -->
+              <!-- <div *ngIf="loading" style="display: inline-flex; margin-top: 10px;">
+                <mat-spinner color="light" diameter="10"></mat-spinner>
+                <label style="color: #2962ff; margin-left: 8px; margin-top: 5px;">comprobando...</label>
+              </div> -->
+              <button *ngIf="loading" mat-raised-button color="primary" style="font-size: medium;"disabled>
+                <div style="height: 20px;">
+                  <div style="display: inline-flex;">
+                    <mat-spinner color="primary" diameter="20">
+                    </mat-spinner>
+                    <!-- <ion-label style="margin-left: 5px; padding: 0px; margin: 0px;" color="primary">Cargando...</ion-label> -->
+                    <label style="margin-left: 5px; color: #2962ff;">Cargando...</label>
+                  </div>
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

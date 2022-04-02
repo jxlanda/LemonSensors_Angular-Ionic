@@ -1,0 +1,139 @@
+<ion-header translucent>
+  <ion-toolbar color="light">
+    <ion-title>
+      <label *ngIf="!data.isEdit">Agregar sensor</label>
+      <label *ngIf="data.isEdit">Editar sensor</label>
+    </ion-title>
+    <ion-buttons slot="start">
+        <ion-button icon-only (click)="dismiss()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" style="padding-right: 15px; padding-left: 15px;">
+      <button slot="end" type="submit" mat-button color="secondary" form="ngForm">
+        Guardar
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding modal">
+  <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()" id="ngForm" #documentEditForm="ngForm">
+ 
+    <ion-row>
+      
+      <ion-col size="12">
+        <h5>Datos generales</h5>
+      </ion-col>
+      
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput formControlName="name">
+          <mat-error *ngIf="sensorForm.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Lugar</mat-label>
+          <input type="text" matInput formControlName="storageplace">
+          <mat-error *ngIf="sensorForm.get('storageplace').invalid">{{getStoragePlaceErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="12" size-md="12">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Descripción</mat-label>
+          <input type="text" matInput formControlName="description">
+          <mat-error *ngIf="sensorForm.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Marca</mat-label>
+          <input type="text" matInput formControlName="brand">
+          <mat-error *ngIf="sensorForm.get('brand').invalid">{{getBrandErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Modelo</mat-label>
+          <input type="text" matInput formControlName="model">
+          <mat-error *ngIf="sensorForm.get('model').invalid">{{getModelErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Categoría de medición</mat-label>
+          <input type="text" matInput formControlName="category">
+          <mat-error *ngIf="sensorForm.get('category').invalid">{{getCategoryErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Simbolo de medición</mat-label>
+          <input type="text" matInput formControlName="measurement">
+          <mat-error *ngIf="sensorForm.get('measurement').invalid">{{getMeasurementErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Voltaje mínimo</mat-label>
+          <input type="number" matInput formControlName="minvoltage">
+          <mat-error *ngIf="sensorForm.get('minvoltage').invalid">{{getMinVoltageErrorMessage()}}</mat-error>
+          <span matSuffix>volts</span>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Voltaje máximo</mat-label>
+          <input type="number" matInput formControlName="maxvoltage">
+          <mat-error *ngIf="sensorForm.get('maxvoltage').invalid">{{getMaxVoltageErrorMessage()}}</mat-error>
+          <span matSuffix>volts</span>
+        </mat-form-field>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="12">
+        <h5>Configuración de sensado</h5>
+      </ion-col>
+      
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Valor mínimo</mat-label>
+          <input type="number" matInput formControlName="minvalue">
+          <mat-error *ngIf="sensorForm.get('minvalue').invalid">{{getMinValueErrorMessage()}}</mat-error>
+          <span matSuffix>{{sensorForm.get('measurement').value}}</span>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="6" size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Valor máximo</mat-label>
+          <input type="number" matInput formControlName="maxvalue">
+          <mat-error *ngIf="sensorForm.get('maxvalue').invalid">{{getMaxValueErrorMessage()}}</mat-error>
+          <span matSuffix>{{sensorForm.get('measurement').value}}</span>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="12" size-md="12">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Sensado</mat-label>
+          <input type="number" matInput formControlName="sensinginseconds">
+          <mat-error *ngIf="sensorForm.get('sensinginseconds').invalid">{{getSensinginSecondsErrorMessage()}}</mat-error>
+          <p matSuffix>segundos</p>
+        </mat-form-field>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-content>

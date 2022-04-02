@@ -1,0 +1,130 @@
+ion-grid{
+    height: 100%; 
+    margin: 0px; 
+    padding: 0px;
+}
+
+ion-row {
+    height: 100%; 
+    margin: 0px;
+}
+
+#container {
+    width: 80%; 
+    margin-left:auto; 
+    margin-right: auto;
+}
+
+button{
+    width: 100%;
+    height: 38px;
+    margin-top: 5px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+
+.color-change {
+    color: gray;
+}
+
+// input {
+//     //color: #212121;
+// }
+
+// .mat-focused .mat-icon {
+//     color: #2962ff;
+// }
+
+// .mat-form-field-invalid .mat-icon {
+//     color: #eb445a;
+// }
+
+.left-col {
+    padding: 0px;
+}
+
+.right-col {
+    padding: 0px;
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+}
+
+.left-background {
+    background-image: url("https://images.unsplash.com/photo-1599508266124-804fc6eecf09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80");
+    //background-image: url('~src/assets/img/login-side.jpg') repeat;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-overlay{
+    background-color: rgba(6, 16, 41, 0.342);
+    width: 100%;
+    height: 100%;
+}
+
+.rcol-div{
+    //background-color: white; 
+    width: 100%; 
+    height: 100%;
+}
+
+.img-lemon {
+    width: 100px; 
+    height: 100px; 
+    margin-top: 5%;
+}
+
+.title {
+    color: #2962ff; 
+    font-size: 28px;
+}
+
+.img-div {
+    text-align: center; 
+    margin-bottom: 8%;
+}
+
+.img-lambda {
+    width: 150px; 
+    height: 50px; 
+    margin-left: 10px; 
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+// ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+//     stroke: white!important;
+// }
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+   
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+}

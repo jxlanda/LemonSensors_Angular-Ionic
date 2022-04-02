@@ -1,0 +1,7 @@
+{
+  "name": "lemonsensors",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

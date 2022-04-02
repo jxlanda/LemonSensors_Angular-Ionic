@@ -1,0 +1,10 @@
+<ion-list>
+  <ion-item button (click)="goToSettings($event)">
+    <ion-icon slot="start" name="settings"></ion-icon>
+    Configuración
+  </ion-item>
+  <ion-item button lines="none" detail="false" (click)="logout($event)">
+    <ion-icon slot="start" name="log-out"></ion-icon>
+    Cerrar sesión
+  </ion-item>
+</ion-list>

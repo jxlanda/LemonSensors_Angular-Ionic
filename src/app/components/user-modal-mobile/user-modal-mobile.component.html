@@ -1,0 +1,106 @@
+<ion-header translucent>
+  <ion-toolbar color="light">
+    <ion-title>
+      <label *ngIf="!data.isEdit">Agregar</label>
+      <label *ngIf="data.isEdit">Editar</label>
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button icon-only (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" style="padding-right: 15px; padding-left: 15px;">
+      <button slot="end" type="submit" mat-button form="ngForm">
+        Guardar
+      </button>
+      <!-- <button *ngIf="data.isEdit" slot="end" type="submit" mat-flat-button color="primary" mat-button form="ngForm">
+        Actualizar
+      </button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding modal">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" id="ngForm" #documentEditForm="ngForm">
+    <ion-row>
+
+      <ion-col size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput [placeholder]="namePlaceholder[nameRandom]" formControlName="name">
+          <mat-error *ngIf="userForm.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Correo electrónico</mat-label>
+          <input type="email" matInput [placeholder]="emailPlaceholder[emailRandom]" formControlName="email">
+          <mat-error *ngIf="userForm.get('email').invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput [placeholder]="passwordPlaceholder[passwordRandom]"
+            formControlName="password">
+          <mat-error *ngIf="userForm.invalid">
+            {{getFormErrorMessage()}}
+          </mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Confirmar contraseña</mat-label>
+          <input type="password" matInput formControlName="password2" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="userForm.invalid">{{getForm2ErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Nombre de usuario</mat-label>
+          <input type="text" matInput [placeholder]="usernamePlaceholder[usernameRandom]" formControlName="username">
+          <mat-error *ngIf="userForm.get('username').invalid">{{getUsernameErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size-md="6">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Tipo de usuario</mat-label>
+          <mat-select [(value)]="selectedRole" formControlName="role">
+            <mat-option value="{{item}}" *ngFor="let item of roles; let i = index">{{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="userForm.get('role').invalid">{{getRoleErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+
+
+      <ion-col size="10" size-sm="8" size-md="10">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>URL de imagen (opcional)</mat-label>
+          <input matInput type="text" [placeholder]="imgPlaceholder[imgRandom]" formControlName="imgurl">
+          <button mat-button *ngIf="userForm.get('imgurl').value" mat-icon-button matSuffix
+            (click)="clearValue('imgurl')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </ion-col>
+
+      <ion-col size="2" size-sm="4" size-md="2">
+        <div>
+          <img [src]="userForm.get('imgurl').value" class="app-avatar-small"
+            [ngxLetterImageAvatar]="{name: userForm.get('name').value, size: 100, font: 'Roboto', placeholder: 'A'}"
+            onerror="this.src = '../assets/img/image-not-found.png'" alt="avatar">
+        </div>
+      </ion-col>
+
+    </ion-row>
+    <!-- <ion-row>
+        <ion-col class="ion-text-end">
+          <button type="submit" mat-flat-button color="primary" mat-button>Actualizar</button>
+        </ion-col>
+      </ion-row> -->
+  </form>
+</ion-content>

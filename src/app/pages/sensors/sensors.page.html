@@ -1,0 +1,270 @@
+<!--Desktop-->
+<ion-content>
+  <ion-card [hidden]="!isDesktop">
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <mat-form-field class="noBottom" appearance="outline" style="width: 100%; margin:0px;">
+            <mat-label>Filtrar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Escribe una palabra" #input>
+          </mat-form-field>
+        </ion-col>
+        <ion-col  [hidden] ="user.role.id == 1"size="2" size-sm="3" size-md="3" size-lg="2">
+          <button mat-raised-button
+            style="width: 100%; height: 50px; margin-top: 4px; text-align: center; text-overflow: ellipsis;"
+            color="primary" (click)="openDialog()">
+            Agregar sensor
+          </button>
+        </ion-col>
+      </ion-row>
+      <table mat-table [dataSource]="dataSource" matSort
+        style="width: calc(100% - 10px); padding: 0px; margin-left: 5px;">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.name == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.name">
+              {{element.name}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.description == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.description">
+              {{element.description}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Brand Column -->
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.brand == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.brand">
+              {{element.brand}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Model Column -->
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Modelo</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.model == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.model">
+              {{element.model}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoría</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.category == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.category">
+              {{element.category}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Measurement Column -->
+        <ng-container matColumnDef="measurement">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Símbolo</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.measurement == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.measurement">
+              {{element.measurement}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Storageplace Column -->
+        <ng-container matColumnDef="storageplace">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Lugar</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.storageplace == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.storageplace">
+              {{element.storageplace}}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- UserImg Column -->
+        <!-- <ng-container matColumnDef="userimg">
+          <th mat-header-cell *matHeaderCellDef>Usuario</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text class="app-avatar" *ngIf="element.user.imgurl == null" animated>
+            </ion-skeleton-text>
+            <img [src]="element.user.imgurl" [hidden]="!element.user" class="app-avatar"
+              [ngxLetterImageAvatar]="{name: element.name, size: 100, font: 'Roboto', placeholder: 'A'}"
+              onerror="this.src = '../assets/img/image-not-found.png'" alt="avatar">
+          </td>
+        </ng-container> -->
+
+        <!-- UserEmail Column -->
+        <!-- <ng-container matColumnDef="useremail">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.user.email == null" animated style="width: 100px"></ion-skeleton-text>
+            <div *ngIf="element.user.email">
+              {{element.user.email}}
+            </div>
+          </td>
+        </ng-container> -->
+
+        <!-- Actions Column -->
+        <ng-container  matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <ion-skeleton-text *ngIf="element.name == null" animated style="width: 100px"></ion-skeleton-text>
+            <button *ngIf="element.name" mat-icon-button style="color: #ffc409;" (click)="editSensorDialog(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="element.name" mat-icon-button style="color: #eb445a;"
+              (click)="openConfirmDialog(element._id.$oid)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td *ngIf="!loading" class="mat-cell" colspan="4">No se encontraron coincidencias para "{{input.value}}"</td>
+        </tr>
+      </table>
+    </ion-card-content>
+  </ion-card>
+
+  <!--Mobile-->
+  <ion-fab [hidden]="!isMobile || user.role.id == 1" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addIonicModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list style="margin-left: 8px; margin-right: 8px; background-color: transparent;" [hidden]="!isMobile">
+    <mat-accordion multi="false">
+      <mat-expansion-panel class="header" (opened)="panelOpenState = true;" (closed)="panelOpenState = false"
+        *ngFor="let element of dataSource.data| filter:filterTerm; let i = index" (afterExpand)="opened(i,panel)"
+        #panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <ion-label style="width: 100%;">
+              <!-- Name -->
+              <ion-skeleton-text *ngIf="!element.name" animated style="width: 100px"></ion-skeleton-text>
+              <h2 *ngIf="element.name" style="margin-bottom: 0px;">{{element.name}}</h2>
+              <!-- Description -->
+              <ion-skeleton-text *ngIf="!element.description" animated style="width: 100px"></ion-skeleton-text>
+              <ion-note *ngIf="element.description">{{element.description}}</ion-note>
+              <br>
+              <!-- Storage Place -->
+              <ion-skeleton-text *ngIf="!element.storageplace" animated style="width: 100px"></ion-skeleton-text>
+              <ion-icon slot="start" name="location-sharp" style="font-size: small;"></ion-icon>
+              <ion-note slot="end" *ngIf="element.storageplace">
+                {{element.storageplace}}
+              </ion-note>
+            </ion-label>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ion-list style="padding: 0px;">
+          <!-- Brand -->
+          <ion-item>
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Marca:</h3>
+              <p style="margin-bottom: 0px;">{{element.brand}}</p>
+            </ion-label>
+            <!-- Model -->
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Modelo:</h3>
+              <p style="margin-bottom: 0px;">{{element.model}}</p>
+            </ion-label>
+            <ion-icon style="width: 50px;" slot="start" name="information-circle"></ion-icon>
+          </ion-item>
+          <!-- Category -->
+          <ion-item>
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Categoría:</h3>
+              <p style="margin-bottom: 0px;">{{element.category}}</p>
+            </ion-label>
+            <!-- Measurement -->
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Símbolo:</h3>
+              <p style="margin-bottom: 0px;">{{element.measurement}}</p>
+            </ion-label>
+            <!-- <div slot="start" style="width: 50px; padding: 0px; margin-left: 14px; margin-right: 18px;">
+              <div class="material-icons">
+                category
+              </div>
+            </div> -->
+            <ion-icon style="width: 50px;" slot="start" name="pulse"></ion-icon>
+          </ion-item>
+          <!-- Max Voltage-->
+          <ion-item>
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Voltaje mínimo:</h3>
+              <p style="margin-bottom: 0px;">{{element.minvoltage}}</p>
+            </ion-label>
+            <!-- Min Voltage -->
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Voltaje máximo:</h3>
+              <p style="margin-bottom: 0px;">{{element.maxvoltage}}</p>
+            </ion-label>
+            <!-- <div slot="start" style="width: 50px; padding: 0px; margin-left: 14px; margin-right: 18px;">
+              <div class="material-icons">
+                electrical_services
+              </div>
+            </div> -->
+            <ion-icon style="width: 50px;" slot="start" name="flash"></ion-icon>
+          </ion-item>
+          <!-- Min Value -->
+          <ion-item color="light">
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Lectura mínima:</h3>
+              <p style="margin-bottom: 0px;">{{element.config.minvalue}} {{element.measurement}}</p>
+            </ion-label>
+            <!-- Max Value -->
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Lectura máxima:</h3>
+              <p style="margin-bottom: 0px;">{{element.config.maxvalue}} {{element.measurement}}</p>
+            </ion-label>
+            <ion-icon style="width: 50px;" slot="start" name="warning"></ion-icon>
+          </ion-item>
+          <!-- Sensing in seconds -->
+          <ion-item color="light">
+            <ion-label>
+              <h3 style="margin-bottom: 0px; color: rgb(109, 108, 108);">Sensado cada:</h3>
+              <p style="margin-bottom: 0px;">{{element.config.sensinginseconds}} segundos</p>
+            </ion-label>
+            <ion-icon style="width: 50px;" slot="start" name="cloud-upload"></ion-icon>
+          </ion-item>
+        </ion-list>
+        <mat-action-row style="border-top: 0px; text-align: start;">
+          <button [hidden] ="user.role.id == 1" mat-stroked-button color="warn" (click)="openConfirmDialog(element._id.$oid)">
+            Eliminar
+          </button>
+          <button [hidden] ="user.role.id == 1" mat-stroked-button color="primary" (click)="editIonicModal(element)">
+            Editar
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ion-list>
+</ion-content>
+<!--Mobile header-->
+<ion-header [hidden]="!isMobile" class="ion-no-border">
+  <ion-toolbar color="light">
+    <ion-searchbar placeholder="Filtrar..." [(ngModel)]="filterTerm" animated="true">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>

@@ -1,0 +1,46 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <div class="avatar" *ngIf="user != null">
+        <!-- <ngx-avatar gravatarId="{{user.email}}" src="{{user.imgurl}}" name="{{user.name}}" size="60" [round]="true"></ngx-avatar> -->
+        <img class="app-avatar" [ngxLetterImageAvatar]="user.name" [src]="user.imgurl" onerror="this.src = '../assets/img/image-not-found.png'" alt="avatar">
+        <div style="display: flex; flex-direction: column;">
+          <label class="avatar-text">{{user.name}}</label>
+          <label class="avatar-email">{{user.email}}</label>
+        </div>
+      </div>
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item (click)="selectedIndex = i; currentText = p.title" 
+              routerDirection="root" 
+              [routerLink]="[p.url]"
+              lines="none" detail="false" [class.selected]="selectedIndex == i">
+              <ion-icon slot="start" [md]="p.icon"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-content id="main-content">
+      <ion-header *ngIf="!isLogin" [translucent]="true">
+        <ion-toolbar color="secondary">
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>{{currentText}}</ion-title>
+          <ion-buttons *ngIf="user != null" slot="end">
+            <!-- <ngx-avatar gravatarId="{{user.email}}" src="{{user.imgurl}}" name="{{user.name}}" size="30" [round]="true"></ngx-avatar> -->
+            <img class="app-avatar-small" [ngxLetterImageAvatar]="user.name" [src]="user.imgurl" onerror="this.src = '../assets/img/image-not-found.png'" alt="avatar">
+            <ion-button (click)="presentPopover($event)">
+              <ion-icon style="width: 20px; height: 20px;" slot="icon-only" [name]="iconArrowAvatar"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-router-outlet style="background-color: whitesmoke;" [ngStyle]="user != null && {'margin-top': '56px'}">
+      </ion-router-outlet>
+    </ion-content>
+  </ion-split-pane>
+</ion-app>

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "lemonsensors"
+  },
+  "targets": {
+    "lemonsensors": {
+      "hosting": {
+        "app": [
+          "lemonsensors"
+        ]
+      }
+    }
+  }
+}

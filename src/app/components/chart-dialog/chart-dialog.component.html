@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Periodo sensado</h2>
+<!-- Formulario -->
+<form [formGroup]="chartForm" (ngSubmit)="onSubmit()">
+  <!-- Rango de fechas -->
+  <mat-dialog-content class="mat-typography">
+    <ion-row>
+      <ion-col>
+        <mat-form-field appearance="fill">
+          <mat-label>Rango de fechas</mat-label>
+          <mat-date-range-input [rangePicker]="picker" formGroupName="chartDateRange">
+            <input matStartDate placeholder="desde" formControlName="startDate">
+            <input matEndDate placeholder="hasta" formControlName="endDate">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          <mat-error *ngIf="chartForm.get('chartDateRange').invalid">{{getDateRangeErrorMessage()}}</mat-error>    
+        </mat-form-field>
+      </ion-col>
+    </ion-row>
+   <!-- Sensor -->
+    <ion-row>
+      <ion-col>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Sensor</mat-label>
+          <mat-select name="sensor" formControlName="sensor">
+            <mat-option *ngFor="let sensor of sensors" [value]="sensor._id.$oid">
+              {{sensor.name}} ({{sensor.model}}) 
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="chartForm.get('sensor').invalid">{{getSensorErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </ion-col>
+    </ion-row>
+
+  </mat-dialog-content>
+  <!-- Botones de acción -->
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button color="warn" [mat-dialog-close]="false">Cancelar</button>
+    <button type="submit" mat-flat-button color="primary" >Generar gráfica</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,27 @@
+.app-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+::ng-deep .noBottom .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+
+::ng-deep .header .mat-expansion-panel-header {
+    padding-right: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: auto;
+    border-radius: unset;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0px 0px 0px !important;
+}
+
+.mat-action-row {
+    padding-left: 88px;
+    place-content: space-around start;
+}
