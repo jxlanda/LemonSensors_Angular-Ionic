@@ -15,11 +15,11 @@ Consiste en una plataforma de monitoreo y control en tiempo real que enviará no
  * Humedad y temperatura
  * Iluminación
 
-## Portal
+## :mag: Portal
 https://lemonsensors.firebaseapp.com/login
 
 ## :pushpin: Arquitectura general del proyecto
-Este repositorio corresponde a la aplicación web progresiva (PWA) que funciona como portal para administrar los sensores y recibir notificaciones según eventos.
+Este repositorio corresponde a la aplicación web progresiva (PWA) construida con Angular e Ionic que funciona como portal para administrar los sensores y recibir notificaciones según eventos.
 
 <img src="./img/A2.3_D1.png"/>
 
